@@ -24,10 +24,24 @@ Widget::~Widget()
 
 void Widget::on_pushButton_clicked()
 {
-    db.connect();
+    int flag=db.connect();
+    if(flag)
+    {
+        ui->label->setText("Successfully connected!");
+    }
+    else {
+        ui->label->setText("Failed to connect!");
+    }
 }
 
 void Widget::on_pushButton_2_clicked()
 {
-    db.insert("yuchengye","19","MALE","20001204","kabu1204@qq.com","15506580556");
+    int flag=db.insert("yuchengye","19","MALE","20001204","kabu1204@qq.com","15506580556");
+    if(flag)
+    {
+        ui->label->setText("Successfully inserted!");
+    }
+    else {
+        ui->label->setText("Failed to insert!");
+    }
 }

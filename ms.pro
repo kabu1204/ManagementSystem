@@ -18,11 +18,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     database.cpp \
     main.cpp \
-    widget.cpp
+    widget.cpp \
+    contacts.cpp
 
 HEADERS += \
     database.h \
-    widget.h
+    widget.h \
+    contacts.h \
+    readonlydelegate.h
 
 FORMS += \
     widget.ui

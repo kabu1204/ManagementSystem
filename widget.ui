@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1085</width>
+    <height>693</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,40 +16,63 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>130</y>
-     <width>201</width>
-     <height>51</height>
+     <x>110</x>
+     <y>650</y>
+     <width>161</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>Connect</string>
+    <string>QSqlTableModel</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>200</y>
-     <width>201</width>
-     <height>51</height>
+     <x>540</x>
+     <y>650</y>
+     <width>93</width>
+     <height>28</height>
     </rect>
    </property>
    <property name="text">
-    <string>Insert</string>
+    <string>CONNECT</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>80</y>
-     <width>281</width>
-     <height>41</height>
+     <x>368</x>
+     <y>333</y>
+     <width>16</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QTableView" name="tableView">
+   <property name="geometry">
+    <rect>
+     <x>11</x>
+     <y>11</y>
+     <width>1061</width>
+     <height>621</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>650</y>
+     <width>181</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>QSqlQueryModel</string>
    </property>
   </widget>
  </widget>

@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include<QSqlTableModel>
 #include"database.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -11,6 +12,7 @@ class Widget : public QWidget
 {
     Q_OBJECT
     Database db;
+    QSqlTableModel *model;
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
@@ -19,6 +21,8 @@ private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
 
 private:
     Ui::Widget *ui;

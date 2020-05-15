@@ -4,6 +4,7 @@
 #include <QSqlDatabase>
 #include <QDebug>
 #include <QMessageBox>
+#include <QSqlTableModel>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <cstring>
@@ -15,11 +16,11 @@ private:
     QString host;
     QString user;
     QString passwd;
-    QString databaseName;
 
 public:
-    Database(QString host_,QString user_,QString passwd_,QString databaseName_);
-    int connect();
+    Database(QString host_,QString user_,QString passwd_);
+    QSqlDatabase* getDB();
+    int connect(QString databaseName);
     int query();
     int insert(QString name="",QString age="10",QString gender="male",QString birthday="19991231",QString email="",QString phone="");
 };

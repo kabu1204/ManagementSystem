@@ -1,21 +1,26 @@
 #include "database.h"
 #include <QSqlDatabase>
+#include <QSqlTableModel>
 #include <QDebug>
 #include <QMessageBox>
 #include <QSqlError>
 #include <QSqlQuery>
 #include<cstring>
 
-Database::Database(QString host_,QString user_,QString passwd_,QString databaseName_)
+Database::Database(QString host_,QString user_,QString passwd_)
 {
     db=QSqlDatabase::addDatabase("QMYSQL");
     host=host_;
     user=user_;
     passwd=passwd_;
-    databaseName=databaseName_;
 }
 
-int Database::connect()
+QSqlDatabase* Database::getDB()
+{
+    return &db;
+}
+
+int Database::connect(QString databaseName)
 {
     db.setHostName(host);
     db.setUserName(user);

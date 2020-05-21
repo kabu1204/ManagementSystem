@@ -13,6 +13,7 @@ class Widget : public QWidget
     Q_OBJECT
     Database db;
     QSqlTableModel *model;
+    Ui::Widget *ui;
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
@@ -24,7 +25,7 @@ private slots:
 
     void on_pushButton_3_clicked();
 
-private:
-    Ui::Widget *ui;
+//private:
+//    Ui::Widget *ui;
 };
 #endif // WIDGET_H

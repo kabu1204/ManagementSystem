@@ -6,6 +6,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include<cstring>
+#include "widget.h"
 
 Database::Database(QString host_,QString user_,QString passwd_)
 {

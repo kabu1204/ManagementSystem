@@ -43,6 +43,7 @@ void Widget::on_pushButton_clicked()
 void Widget::on_pushButton_2_clicked()
 {
     int flag=db.connect("familiar");
+    ui->label_2->setText("已连接到"+(*db.getDB()).hostName());
 }
 
 void Widget::on_pushButton_3_clicked()

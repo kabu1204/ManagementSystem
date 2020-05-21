@@ -16,7 +16,7 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>10</x>
      <y>650</y>
      <width>161</width>
      <height>31</height>
@@ -29,11 +29,34 @@
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>400</x>
      <y>650</y>
-     <width>93</width>
-     <height>28</height>
+     <width>101</width>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    border: 1px solid #333333;
+    padding: 4px;
+    min-width: 65px;
+    min-height: 12px;
+}
+
+QPushButton:hover {
+    background-color: #333333;
+    border-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #111111;
+    border-color: #333333;
+    color: yellow;
+}
+
+QPushButton:disabled {
+    color: #333333;
+}</string>
    </property>
    <property name="text">
     <string>CONNECT</string>
@@ -61,11 +84,14 @@
      <height>621</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
   </widget>
   <widget class="QPushButton" name="pushButton_3">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>190</x>
      <y>650</y>
      <width>181</width>
      <height>31</height>
@@ -73,6 +99,19 @@
    </property>
    <property name="text">
     <string>QSqlQueryModel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>650</y>
+     <width>391</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>未连接</string>
    </property>
   </widget>
  </widget>

@@ -9,6 +9,7 @@
 #include"readonlydelegate.h"
 #include"QTableView"
 #include"QStandardItemModel"
+#include"sqlqueryrewrite.h"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -16,11 +17,6 @@ Widget::Widget(QWidget *parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
-
-//    QString sql,name="ycy",gender="male",email="qq.com",phone="15506580556";
-//    QString age="19",birthday="2000";
-//    sql="INSERT INTO personal_info (name,age,gender,birthday,email,phone) VALUES ("+name+","+age+","+gender+","+birthday+","+email+","+phone+")";
-//    qDebug()<<sql;
 }
 
 Widget::~Widget()
@@ -29,32 +25,65 @@ Widget::~Widget()
 }
 
 
-void Widget::on_pushButton_clicked()
+void Widget::on_tableButton_1_clicked()
 {
-    model=new QSqlTableModel(this,*db.getDB());
-    model->setTable("classmates");
-    model->select();
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    ui->tableView->setModel(model);
+    tableModel=new QSqlTableModel(this,*db.getDB());
+    tableModel->setTable("classmates");
+    tableModel->select();
+    tableModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    ui->tableView->setModel(tableModel);
     ReadOnlyDelegate *readonly=new ReadOnlyDelegate();
     ui->tableView->setItemDelegateForColumn(2,readonly);
 }
 
-void Widget::on_pushButton_2_clicked()
+void Widget::on_connectButton_1_clicked()
 {
     int flag=db.connect("familiar");
-    ui->label_2->setText("已连接到"+(*db.getDB()).hostName());
+    if(flag==1)
+    ui->connectInfo->setText("已连接到"+(*db.getDB()).hostName());
+    else ui->connectInfo->setText("连接失败");
 }
 
-void Widget::on_pushButton_3_clicked()
+void Widget::on_queryButton_1_clicked()
 {
-//    QSqlQueryModel *md=new QSqlQueryModel;
-//    md->setQuery("SELECT * FROM classmates UNION SELECT * FROM colleagues");
-    QStandardItemModel *model=new QStandardItemModel(this);
-    model->setHorizontalHeaderItem(0,new QStandardItem(QObject::tr("Name")));
-    model->setHorizontalHeaderItem(1,new QStandardItem(QObject::tr("Birthday")));
-    model->setHorizontalHeaderItem(2,new QStandardItem(QObject::tr("Email")));
-    model->setHorizontalHeaderItem(3,new QStandardItem(QObject::tr("Phone")));
+    queryModel=new SqlQueryRewrite(this);
+    queryModel->setQuery("SELECT name,birthday,phone,email FROM classmates UNION SELECT name,birthday,phone,email FROM colleagues UNION SELECT name,birthday,phone,email FROM relatives UNION SELECT name,birthday,phone,email FROM teachers UNION SELECT name,birthday,phone,email FROM superiors UNION SELECT name,birthday,phone,email FROM superiors UNION SELECT name,birthday,phone,email FROM clients");
+    ui->tableView->setModel(queryModel);
+}
 
-    ui->tableView->setModel(model);
+void Widget::on_insertButton_1_clicked()
+{
+    //
+}
+
+void Widget::on_deleteButton_clicked()
+{
+
+    //删除数据库中的选中行
+    QItemSelectionModel *selections = ui->tableView->selectionModel();
+    QModelIndexList selected = selections->selectedIndexes();
+    QMap<int, int> rows;
+    foreach (QModelIndex index, selected)
+       rows.insert(index.row(), 0);
+    QMapIterator<int, int> r(rows);
+    r.toBack();
+    while (r.hasPrevious())
+    {
+        r.previous();
+       queryModel->removeRow(r.key());
+    }
+    //得到id 并删除数据库数据
+    int curRow = ui->tableView->currentIndex().row();
+    QModelIndex index = ui->tableView->currentIndex();
+    int id=index.sibling(curRow,7).data().toInt();
+    //删除数据库中数据
+    QSqlQuery query;
+    query.prepare("delete from table where id =:id ");
+    query.bindValue("id",id);
+    query.exec();
+    if(!query.isActive())
+    {
+        QMessageBox::critical(this,QString::fromLocal8Bit("提示"),QString::fromLocal8Bit("删除数据失败!"));
+        return;
+    }
 }

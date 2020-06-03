@@ -18,17 +18,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     database.cpp \
     main.cpp \
-    widget.cpp \
-    contacts.cpp
+    contacts.cpp \
+    sqlqueryrewrite.cpp \
+    withmenu.cpp
 
 HEADERS += \
     database.h \
-    widget.h \
     contacts.h \
-    readonlydelegate.h
+    readonlydelegate.h \
+    sqlqueryrewrite.h \
+    withmenu.h
 
 FORMS += \
-    widget.ui
+    withmenu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

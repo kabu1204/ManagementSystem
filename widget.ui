@@ -13,11 +13,11 @@
   <property name="windowTitle">
    <string>Widget</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="tableButton_1">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>650</y>
+     <x>860</x>
+     <y>70</y>
      <width>161</width>
      <height>31</height>
     </rect>
@@ -26,11 +26,11 @@
     <string>QSqlTableModel</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="connectButton_1">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>650</y>
+     <x>890</x>
+     <y>30</y>
      <width>101</width>
      <height>31</height>
     </rect>
@@ -80,38 +80,64 @@ QPushButton:disabled {
     <rect>
      <x>11</x>
      <y>11</y>
-     <width>1061</width>
-     <height>621</height>
+     <width>791</width>
+     <height>531</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true"/>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QLabel" name="connectInfo">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>650</y>
-     <width>181</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>QSqlQueryModel</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>580</x>
-     <y>650</y>
+     <x>810</x>
+     <y>190</y>
      <width>391</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
     <string>未连接</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="queryButton_1">
+   <property name="geometry">
+    <rect>
+     <x>860</x>
+     <y>150</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>查看全体人员信息</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="insertButton_1">
+   <property name="geometry">
+    <rect>
+     <x>880</x>
+     <y>280</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Insert</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="deleteButton">
+   <property name="geometry">
+    <rect>
+     <x>860</x>
+     <y>370</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>delete</string>
    </property>
   </widget>
  </widget>

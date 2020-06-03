@@ -41,7 +41,7 @@ void withMenu::on_queryButton_1_clicked()
     ui->tableView->setColumnHidden(5,true);
 }
 
-void withMenu::on_pushButton_clicked()
+void withMenu::on_deleteButton_1_clicked()
 {
     //删除数据库中的选中行
     QItemSelectionModel *selections = ui->tableView->selectionModel();
@@ -56,14 +56,19 @@ void withMenu::on_pushButton_clicked()
         r.previous();
        queryModel->removeRow(r.key());
     }
-    //得到id 并删除数据库数据
+    //得到dummy(主键)、relation(指示表名) 并删除数据库数据
     int curRow = ui->tableView->currentIndex().row();
     QModelIndex index = ui->tableView->currentIndex();
     int dummy=index.sibling(curRow,5).data().toInt();
     QString relation=index.sibling(curRow,4).data().toString();
     QString dummy_=QString::number(dummy);
-    qDebug()<<relation<<endl;
+    qDebug()<<relation;
     qDebug()<<dummy_;
+    if(relation=="")
+    {
+        QMessageBox::critical(this,QString::fromLocal8Bit("Error"),QString::fromLocal8Bit(("Please select a row!")));
+        return;
+    }
     //删除数据库中数据
     QSqlQuery query;
     query.prepare("delete from "+relation+" where dummy ="+dummy_);
@@ -73,8 +78,13 @@ void withMenu::on_pushButton_clicked()
     qDebug()<<db.getDB()->lastError();
     if(!query.isActive())
     {
-        QMessageBox::critical(this,QString::fromLocal8Bit("hint"),QString::fromLocal8Bit("failed"));
+        QMessageBox::critical(this,QString::fromLocal8Bit("Error"),QString::fromLocal8Bit("failed"));
         qDebug()<<db.getDB()->lastError();
         return;
     }
+}
+
+void withMenu::on_action_triggered()
+{
+    iw.show();
 }

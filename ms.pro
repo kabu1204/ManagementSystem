@@ -20,17 +20,20 @@ SOURCES += \
     main.cpp \
     contacts.cpp \
     sqlqueryrewrite.cpp \
-    withmenu.cpp
+    withmenu.cpp \
+    insertwindow.cpp
 
 HEADERS += \
     database.h \
     contacts.h \
     readonlydelegate.h \
     sqlqueryrewrite.h \
-    withmenu.h
+    withmenu.h \
+    insertwindow.h
 
 FORMS += \
-    withmenu.ui
+    withmenu.ui \
+    insertwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

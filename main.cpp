@@ -1,5 +1,6 @@
 //#include "widget.h"
 #include"withmenu.h"
+//#include"insertwindow.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

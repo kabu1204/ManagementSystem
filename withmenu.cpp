@@ -14,19 +14,24 @@
 withMenu::withMenu(QWidget *parent) :
     QMainWindow(parent),
     db("rm-bp10ciy2b7p5l0jm70o.mysql.rds.aliyuncs.com","yuchengye","qq20001204_"),
-    ui(new Ui::withMenu)
+    ui(new Ui::withMenu),
+    iw(&db)
 {
     ui->setupUi(this);
+    QString a=" h  h ";
+    qDebug()<<a.simplified();
 }
 
 withMenu::~withMenu()
 {
+    iw.close();
     delete ui;
 }
 
 void withMenu::on_connectButton_clicked()
 {
     int flag=db.connect("familiar");
+    QStringList basic,extra;
 //    if(flag==1)
 //    ui->connectInfo->setText("已连接到"+(*db.getDB()).hostName());
 //    else ui->connectInfo->setText("连接失败");
@@ -36,7 +41,7 @@ void withMenu::on_connectButton_clicked()
 void withMenu::on_queryButton_1_clicked()
 {
     queryModel=new SqlQueryRewrite(this);
-    queryModel->setQuery("SELECT name,birthday,phone,email,relation,dummy FROM classmates UNION SELECT name,birthday,phone,email,relation,dummy FROM colleagues UNION SELECT name,birthday,phone,email,relation,dummy FROM relatives UNION SELECT name,birthday,phone,email,relation,dummy FROM teachers UNION SELECT name,birthday,phone,email,relation,dummy FROM superiors UNION SELECT name,birthday,phone,email,relation,dummy FROM superiors UNION SELECT name,birthday,phone,email,relation,dummy FROM clients");
+    queryModel->setQuery("SELECT name,birthday,phone,email,relation,dummy FROM classmates UNION SELECT name,birthday,phone,email,relation,dummy FROM colleagues UNION SELECT name,birthday,phone,email,relation,dummy FROM relatives UNION SELECT name,birthday,phone,email,relation,dummy FROM teachers UNION SELECT name,birthday,phone,email,relation,dummy FROM superiors UNION SELECT name,birthday,phone,email,relation,dummy FROM superiors UNION SELECT name,birthday,phone,email,relation,dummy FROM clients UNION SELECT name,birthday,phone,email,relation,dummy FROM others");
     ui->tableView->setModel(queryModel);
     ui->tableView->setColumnHidden(5,true);
 }

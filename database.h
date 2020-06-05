@@ -22,7 +22,8 @@ public:
     QSqlDatabase* getDB();
     int connect(QString databaseName);
     int query();
-    int insert(QString name="",QString age="10",QString gender="male",QString birthday="19991231",QString email="",QString phone="");
+    static int check_fix(QString relation,QStringList basic,QStringList extra);
+    int insert(QString relation,QStringList basic,QStringList extra);
 };
 
 #endif // DATABASE_H

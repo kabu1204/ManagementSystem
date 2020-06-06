@@ -8,6 +8,7 @@
 #include<cstring>
 #include "widget.h"
 #include"QDate"
+#include"utils.h"
 
 Database::Database(QString host_,QString user_,QString passwd_)
 {
@@ -50,7 +51,9 @@ int Database::insertion_check_fix(QString relation,QStringList basic,QStringList
     if(basic[5].toLongLong()<=0) return 14;
     QDate date=QDate::fromString(basic[3],"yyyy-MM-dd");
     if(date>QDate::currentDate()) return 15;
-    if((!basic[4].contains("@"))||(basic[4].indexOf("@")==basic[4].size()-1)) return 16;
+    if((!basic[4].contains("@"))||(basic[4].indexOf("@")==basic[4].size()-1)||(basic[4].indexOf("@")==0)
+            ||(countCharacter(basic[4],"@")))
+        return 16;
 
     //判断额外信息是否为空  ErrorCode 7-12
     for(int i=7;i<=12;i++)

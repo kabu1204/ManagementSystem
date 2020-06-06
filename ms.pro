@@ -26,7 +26,8 @@ SOURCES += \
     genderdelegate.cpp \
     numberdelegate.cpp \
     nonemptydelegate.cpp \
-    emailformatdelegate.cpp
+    emailformatdelegate.cpp \
+    utils.cpp
 
 HEADERS += \
     database.h \
@@ -39,7 +40,8 @@ HEADERS += \
     genderdelegate.h \
     numberdelegate.h \
     nonemptydelegate.h \
-    emailformatdelegate.h
+    emailformatdelegate.h \
+    utils.h
 
 FORMS += \
     withmenu.ui \

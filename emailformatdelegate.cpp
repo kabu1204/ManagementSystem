@@ -2,6 +2,7 @@
 #include"nonemptydelegate.h"
 #include"QLineEdit"
 #include"QMessageBox"
+#include"utils.h"
 
 emailFormatDelegate::emailFormatDelegate():nonEmptyDelegate()
 {
@@ -25,7 +26,7 @@ void emailFormatDelegate::setModelData(QWidget *editor, QAbstractItemModel *mode
         QMessageBox::warning(nullptr,"Warning","Cannot be empty!");
         return;
     }
-    if((!text.contains("@")||(text.indexOf("@")==0)||(count(text)>1)))
+    if((!text.contains("@")||(text.indexOf("@")==0)||(text.indexOf("@")==(text.size()-1))||(countCharacter(text,"@")>1)))
     {
         QMessageBox::warning(nullptr,"Warning","Email format wrong!");
         return;

@@ -36,16 +36,17 @@ int Database::connect(QString databaseName)
     else return 1;
 }
 
-int Database::check_fix(QString relation,QStringList basic,QStringList extra)
+int Database::insertion_check_fix(QString relation,QStringList basic,QStringList extra)
 {
     if(relation=="") return -1;
-    //判断基本信息是否有效(是否为空或者格式是否正确) ErrorCode 1-6、13-16
+    //判断基本信息是否有效(是否为空或者格式是否正确) ErrorCode 1-6、13-17
     for(int i=1;i<=6;i++)
     {
         basic[i-1]=basic[i-1].simplified();        //去掉多余空格
-        if(basic[i-1]=="") return i;
+        if(basic[i-1].isEmpty()) return i;
     }
     if(basic[1].toInt()<=0) return 13;
+    if(basic[1].toInt()>=200) return 17;
     if(basic[5].toLongLong()<=0) return 14;
     QDate date=QDate::fromString(basic[3],"yyyy-MM-dd");
     if(date>QDate::currentDate()) return 15;

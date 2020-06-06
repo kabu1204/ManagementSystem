@@ -22,7 +22,7 @@ public:
     QSqlDatabase* getDB();
     int connect(QString databaseName);
     int query();
-    static int check_fix(QString relation,QStringList basic,QStringList extra);
+    static int insertion_check_fix(QString relation,QStringList basic,QStringList extra);
     int insert(QString relation,QStringList basic,QStringList extra);
 };
 

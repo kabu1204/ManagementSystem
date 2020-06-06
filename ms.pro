@@ -21,7 +21,12 @@ SOURCES += \
     contacts.cpp \
     sqlqueryrewrite.cpp \
     withmenu.cpp \
-    insertwindow.cpp
+    insertwindow.cpp \
+    editwindow.cpp \
+    genderdelegate.cpp \
+    numberdelegate.cpp \
+    nonemptydelegate.cpp \
+    emailformatdelegate.cpp
 
 HEADERS += \
     database.h \
@@ -29,11 +34,17 @@ HEADERS += \
     readonlydelegate.h \
     sqlqueryrewrite.h \
     withmenu.h \
-    insertwindow.h
+    insertwindow.h \
+    editwindow.h \
+    genderdelegate.h \
+    numberdelegate.h \
+    nonemptydelegate.h \
+    emailformatdelegate.h
 
 FORMS += \
     withmenu.ui \
-    insertwindow.ui
+    insertwindow.ui \
+    editwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

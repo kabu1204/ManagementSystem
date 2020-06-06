@@ -10,12 +10,15 @@
 #include"QTableView"
 #include"QStandardItemModel"
 #include"sqlqueryrewrite.h"
+#include"QSqlError"
+#include"editwindow.h"
 
 withMenu::withMenu(QWidget *parent) :
     QMainWindow(parent),
-    db("rm-bp10ciy2b7p5l0jm70o.mysql.rds.aliyuncs.com","yuchengye","qq20001204_"),
+    db("rm-bp10ciy2b7p5l0jm70o.mysql.rds.aliyuncs.com","yuchengye","qq20001204"),
     ui(new Ui::withMenu),
-    iw(&db)
+    iw(&db),
+    ew()
 {
     ui->setupUi(this);
     QString a=" h  h ";
@@ -41,7 +44,8 @@ void withMenu::on_connectButton_clicked()
 void withMenu::on_queryButton_1_clicked()
 {
     queryModel=new SqlQueryRewrite(this);
-    queryModel->setQuery("SELECT name,birthday,phone,email,relation,dummy FROM classmates UNION SELECT name,birthday,phone,email,relation,dummy FROM colleagues UNION SELECT name,birthday,phone,email,relation,dummy FROM relatives UNION SELECT name,birthday,phone,email,relation,dummy FROM teachers UNION SELECT name,birthday,phone,email,relation,dummy FROM superiors UNION SELECT name,birthday,phone,email,relation,dummy FROM superiors UNION SELECT name,birthday,phone,email,relation,dummy FROM clients UNION SELECT name,birthday,phone,email,relation,dummy FROM others");
+    queryModel->setQuery("SELECT name,birthday,phone,email,relation,dummy FROM classmates UNION SELECT name,birthday,phone,email,relation,dummy FROM friends UNION SELECT name,birthday,phone,email,relation,dummy FROM colleagues UNION SELECT name,birthday,phone,email,relation,dummy FROM relatives UNION SELECT name,birthday,phone,email,relation,dummy FROM teachers UNION SELECT name,birthday,phone,email,relation,dummy FROM superiors UNION SELECT name,birthday,phone,email,relation,dummy FROM superiors UNION SELECT name,birthday,phone,email,relation,dummy FROM clients UNION SELECT name,birthday,phone,email,relation,dummy FROM others");
+    qDebug()<<db.getDB()->lastError();
     ui->tableView->setModel(queryModel);
     ui->tableView->setColumnHidden(5,true);
 }
@@ -92,4 +96,10 @@ void withMenu::on_deleteButton_1_clicked()
 void withMenu::on_action_triggered()
 {
     iw.show();
+}
+
+void withMenu::on_action_2_triggered()
+{
+    ew.TableModelInitializer();
+    ew.show();
 }

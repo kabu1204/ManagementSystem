@@ -6,6 +6,7 @@
 #include"database.h"
 #include"sqlqueryrewrite.h"
 #include"insertwindow.h"
+#include"editwindow.h"
 
 namespace Ui {
 class withMenu;
@@ -26,9 +27,12 @@ private slots:
     void on_queryButton_1_clicked();
     void on_deleteButton_1_clicked();
     void on_action_triggered();
+    void on_action_2_triggered();
+
 private:
     Ui::withMenu *ui;
     InsertWindow iw;
+    EditWindow ew;
 };
 
 #endif // WITHMENU_H

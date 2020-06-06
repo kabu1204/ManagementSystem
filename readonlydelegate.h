@@ -7,15 +7,15 @@ class ReadOnlyDelegate: public QItemDelegate
 {
 
 public:
-    ReadOnlyDelegate(QWidget *parent = NULL):QItemDelegate(parent)
+    ReadOnlyDelegate(QWidget *parent = nullptr):QItemDelegate(parent)
     {}
 
-    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,const QModelIndex &index) const override //final
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,const QModelIndex &index) const override
     {
         Q_UNUSED(parent)
         Q_UNUSED(option)
         Q_UNUSED(index)
-        return NULL;
+        return nullptr;
     }
 };
 #endif // READONLYDELEGATE_H

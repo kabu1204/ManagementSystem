@@ -49,22 +49,23 @@ void InsertWindow::extraBoxDefault()
 void InsertWindow::raiseError(int errCode)
 {
     if(errCode==-1) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":Please select the relation!");
-    if(errCode==1) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":\"Name\" cannot be empty!");
-    if(errCode==2) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":\"Age\" cannot be empty!");
-    if(errCode==3) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":\"Gender\" cannot be empty!");
-    if(errCode==4) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":\"Birthday\" cannot be empty!");
-    if(errCode==5) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":\"Email\" cannot be empty!");
-    if(errCode==6) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":\"Phone\" cannot be empty!");
-    if(errCode==7) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":\"School\" cannot be empty!");
-    if(errCode==8) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":\"Course\" cannot be empty!");
-    if(errCode==9) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":\"Company\" cannot be empty!");
-    if(errCode==10) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":\"Post\" cannot be empty!");
-    if(errCode==11) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":\"Call\" cannot be empty!");
-    if(errCode==12) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":\"Place\" cannot be empty!");
-    if(errCode==13) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":Age must be positive!");
-    if(errCode==14) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":Phone number must be positive");
-    if(errCode==15) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":Birthday must be earlier than today!");
-    if(errCode==16) QMessageBox::critical(this,"Error","Insert failed! Error "+QString(errCode)+":The format of the email address is wrong!");
+    if(errCode==1) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Name\" cannot be empty!");
+    if(errCode==2) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Age\" cannot be empty!");
+    if(errCode==3) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Gender\" cannot be empty!");
+    if(errCode==4) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Birthday\" cannot be empty!");
+    if(errCode==5) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Email\" cannot be empty!");
+    if(errCode==6) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Phone\" cannot be empty!");
+    if(errCode==7) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"School\" cannot be empty!");
+    if(errCode==8) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Course\" cannot be empty!");
+    if(errCode==9) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Company\" cannot be empty!");
+    if(errCode==10) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Post\" cannot be empty!");
+    if(errCode==11) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Call\" cannot be empty!");
+    if(errCode==12) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Place\" cannot be empty!");
+    if(errCode==13) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":Age must be positive!");
+    if(errCode==14) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":Phone number must be positive");
+    if(errCode==15) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":Birthday must be earlier than today!");
+    if(errCode==16) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":The format of the email address is wrong!");
+    if(errCode==17) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":Age cannot be larger than 200!");
 }
 
 void InsertWindow::on_relationCombo_currentIndexChanged(int idx)
@@ -110,7 +111,7 @@ void InsertWindow::on_insertButton_clicked()
         <<(ui->companyIn->isEnabled()?ui->companyIn->text():"Unabled")<<(ui->postIn->isEnabled()?ui->postIn->text():"Unabled")
        <<(ui->callIn->isEnabled()?ui->callIn->text():"Unabled")<<(ui->placeIn->isEnabled()?ui->placeIn->text():"Unabled")
       <<ui->remarkIn->toPlainText();
-    int errCode=Database::check_fix(relation,basic,extra);
+    int errCode=Database::insertion_check_fix(relation,basic,extra);
     if(errCode==0) db->insert(relation,basic,extra);
     else raiseError(errCode);
 }

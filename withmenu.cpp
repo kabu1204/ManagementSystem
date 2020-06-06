@@ -17,17 +17,16 @@ withMenu::withMenu(QWidget *parent) :
     QMainWindow(parent),
     db("rm-bp10ciy2b7p5l0jm70o.mysql.rds.aliyuncs.com","yuchengye","qq20001204"),
     ui(new Ui::withMenu),
-    iw(&db),
-    ew()
+    insertWindow(&db),
+    editWindow(parent),
+    name_searchWindow(parent)
 {
     ui->setupUi(this);
-    QString a=" h  h ";
-    qDebug()<<a.simplified();
 }
 
 withMenu::~withMenu()
 {
-    iw.close();
+    insertWindow.close();
     delete ui;
 }
 
@@ -95,11 +94,16 @@ void withMenu::on_deleteButton_1_clicked()
 
 void withMenu::on_action_triggered()
 {
-    iw.show();
+    insertWindow.show();
 }
 
 void withMenu::on_action_2_triggered()
 {
-    ew.TableModelInitializer();
-    ew.show();
+    editWindow.TableModelInitializer();
+    editWindow.show();
+}
+
+void withMenu::on_action_3_triggered()
+{
+    name_searchWindow.show();
 }

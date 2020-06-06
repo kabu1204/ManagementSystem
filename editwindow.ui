@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>857</width>
-    <height>567</height>
+    <width>893</width>
+    <height>557</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,14 +19,17 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>20</y>
-     <width>841</width>
-     <height>481</height>
+     <x>11</x>
+     <y>11</y>
+     <width>881</width>
+     <height>501</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QTabBar::tab{width:110}</string>
+   </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>7</number>
    </property>
    <widget class="QWidget" name="classmatestab">
     <attribute name="title">
@@ -37,8 +40,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>841</width>
-       <height>451</height>
+       <width>871</width>
+       <height>471</height>
       </rect>
      </property>
     </widget>
@@ -52,8 +55,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>841</width>
-       <height>441</height>
+       <width>871</width>
+       <height>471</height>
       </rect>
      </property>
     </widget>
@@ -67,8 +70,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>841</width>
-       <height>441</height>
+       <width>871</width>
+       <height>471</height>
       </rect>
      </property>
     </widget>
@@ -82,8 +85,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>841</width>
-       <height>441</height>
+       <width>871</width>
+       <height>471</height>
       </rect>
      </property>
     </widget>
@@ -97,8 +100,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>841</width>
-       <height>441</height>
+       <width>871</width>
+       <height>471</height>
       </rect>
      </property>
     </widget>
@@ -112,8 +115,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>841</width>
-       <height>441</height>
+       <width>871</width>
+       <height>471</height>
       </rect>
      </property>
     </widget>
@@ -127,8 +130,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>841</width>
-       <height>441</height>
+       <width>871</width>
+       <height>471</height>
       </rect>
      </property>
     </widget>
@@ -142,51 +145,66 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>841</width>
-       <height>441</height>
+       <width>871</width>
+       <height>471</height>
       </rect>
      </property>
     </widget>
    </widget>
   </widget>
-  <widget class="QPushButton" name="commitButton">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>510</y>
-     <width>141</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Commit</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="withdrawButtion">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>510</y>
-     <width>141</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Withdraw</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="hintlabel">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>230</x>
      <y>520</y>
-     <width>411</width>
+     <width>651</width>
      <height>31</height>
     </rect>
    </property>
    <property name="text">
     <string>Cannot withdraw after committing</string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>520</y>
+     <width>211</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="commitButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Commit</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="withdrawButtion">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Withdraw</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

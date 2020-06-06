@@ -9,7 +9,6 @@ public:
     emailFormatDelegate();
     virtual void setModelData(QWidget *editor,QAbstractItemModel *model,const QModelIndex &index)const;
     int count(QString str)const;
-    friend static int utils::countCharacter
 };
 
 #endif // EMAILFORMATDELEGATE_H

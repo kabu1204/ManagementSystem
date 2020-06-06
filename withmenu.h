@@ -7,6 +7,7 @@
 #include"sqlqueryrewrite.h"
 #include"insertwindow.h"
 #include"editwindow.h"
+#include"searchbyname.h"
 
 namespace Ui {
 class withMenu;
@@ -29,10 +30,13 @@ private slots:
     void on_action_triggered();
     void on_action_2_triggered();
 
+    void on_action_3_triggered();
+
 private:
     Ui::withMenu *ui;
-    InsertWindow iw;
-    EditWindow ew;
+    InsertWindow insertWindow;
+    EditWindow editWindow;
+    SearchByName name_searchWindow;
 };
 
 #endif // WITHMENU_H

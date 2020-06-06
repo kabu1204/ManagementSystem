@@ -9,3 +9,10 @@ int countCharacter(QString str, QString ch)
         r=(str[i]==ch)?(r+1):r;
     return r;
 }
+
+QStringList relations()
+{
+    QStringList rlt;
+    rlt<<"classmates"<<"friends"<<"colleagues"<<"relatives"<<"teachers"<<"superiors"<<"clients"<<"others";
+    return rlt;
+}

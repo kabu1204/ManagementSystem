@@ -9,14 +9,6 @@ emailFormatDelegate::emailFormatDelegate():nonEmptyDelegate()
 
 }
 
-int emailFormatDelegate::count(QString str)const
-{
-    int r=0;
-    for(int i=0;i<str.size();i++)
-        r=(str[i]=="@")?r+1:r;
-    return r;
-}
-
 void emailFormatDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     QLineEdit *lineEdit=static_cast<QLineEdit*>(editor);

@@ -15,6 +15,7 @@ EditWindow::EditWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("Edit");
+    setFixedSize(893,557);
     defaultfont.setPointSize(10);
     defaultfont.setFamily("微软雅黑");
     setFont(defaultfont);

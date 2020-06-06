@@ -9,10 +9,12 @@ InsertWindow::InsertWindow(Database *db_,QWidget *parent) :
 {
     ui->setupUi(this);
     db=db_;
+    setFixedSize(814,382);
     setWindowTitle("Insert");
     labelfont.setPointSize(12);
     labelfont.setFamily("微软雅黑");
     setFont(labelfont);
+
     labelfont.setPointSize(10);
     ui->placeIn->setFont(labelfont);
     ui->relationCombo->setFont(labelfont);
@@ -26,9 +28,6 @@ InsertWindow::InsertWindow(Database *db_,QWidget *parent) :
     ui->phoneIn->setValidator(validator);
 
     extraBoxDefault();
-
-    qDebug()<<ui->birthdayIn->date().toString("yyyy-MM-dd");
-    qDebug()<<(QString(ui->postIn->isEnabled())==QString(false));
 }
 
 InsertWindow::~InsertWindow()

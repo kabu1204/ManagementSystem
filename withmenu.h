@@ -8,6 +8,7 @@
 #include"insertwindow.h"
 #include"editwindow.h"
 #include"searchbyname.h"
+#include"searchbybirthday.h"
 
 namespace Ui {
 class withMenu;
@@ -32,11 +33,14 @@ private slots:
 
     void on_action_3_triggered();
 
+    void on_action_4_triggered();
+
 private:
     Ui::withMenu *ui;
     InsertWindow insertWindow;
     EditWindow editWindow;
     SearchByName name_searchWindow;
+    SearchByBirthday birthday_searchWindow;
 };
 
 #endif // WITHMENU_H

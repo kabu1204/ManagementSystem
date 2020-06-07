@@ -85,6 +85,7 @@
      <string>查询</string>
     </property>
     <addaction name="action_3"/>
+    <addaction name="action_4"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -112,6 +113,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+N</string>
+   </property>
+  </action>
+  <action name="action_4">
+   <property name="text">
+    <string>按生日搜索</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+B</string>
    </property>
   </action>
  </widget>

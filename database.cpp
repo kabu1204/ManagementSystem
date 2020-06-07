@@ -52,7 +52,7 @@ int Database::insertion_check_fix(QString relation,QStringList basic,QStringList
     QDate date=QDate::fromString(basic[3],"yyyy-MM-dd");
     if(date>QDate::currentDate()) return 15;
     if((!basic[4].contains("@"))||(basic[4].indexOf("@")==basic[4].size()-1)||(basic[4].indexOf("@")==0)
-            ||(countCharacter(basic[4],"@")))
+            ||(countCharacter(basic[4],"@")>1))
         return 16;
 
     //判断额外信息是否为空  ErrorCode 7-12

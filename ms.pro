@@ -28,7 +28,8 @@ SOURCES += \
     nonemptydelegate.cpp \
     emailformatdelegate.cpp \
     utils.cpp \
-    searchbyname.cpp
+    searchbyname.cpp \
+    searchbybirthday.cpp
 
 HEADERS += \
     database.h \
@@ -43,13 +44,15 @@ HEADERS += \
     nonemptydelegate.h \
     emailformatdelegate.h \
     utils.h \
-    searchbyname.h
+    searchbyname.h \
+    searchbybirthday.h
 
 FORMS += \
     withmenu.ui \
     insertwindow.ui \
     editwindow.ui \
-    searchbyname.ui
+    searchbyname.ui \
+    searchbybirthday.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

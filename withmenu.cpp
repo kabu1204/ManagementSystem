@@ -107,3 +107,8 @@ void withMenu::on_action_3_triggered()
 {
     name_searchWindow.show();
 }
+
+void withMenu::on_action_4_triggered()
+{
+    birthday_searchWindow.show();
+}

@@ -24,7 +24,7 @@ public:
     ~withMenu();
 
 private slots:
-    void on_queryButton_1_clicked();
+    void on_refreshButton_clicked();
     void on_deleteButton_1_clicked();
     void on_action_triggered();
     void on_action_2_triggered();
@@ -32,6 +32,14 @@ private slots:
     void on_action_3_triggered();
 
     void on_action_4_triggered();
+
+    void on_action_13_triggered();
+
+    void on_action_12_triggered();
+
+    void on_action_8_triggered();
+
+    void on_action_9_triggered();
 
 private:
     Ui::withMenu *ui;

@@ -27,6 +27,7 @@ withMenu::withMenu(QWidget *parent) :
     font.setPointSize(10);
     font.setFamily("微软雅黑");
     setFont(font);
+    setFixedSize(900,633);
 
     int flag=db.connect("familiar");
     CategoryModels<<classmatesModel<<friendsModel<<colleaguesModel<<relativesModel<<teachersModel<<superiorsModel<<clientsModel<<othersModel;
@@ -41,8 +42,8 @@ withMenu::withMenu(QWidget *parent) :
     {
         defaultsql+=(" UNION SELECT name,birthday,phone,email,dummy,relation FROM "+relations()[i]);
     }
-
     readOnly=new ReadOnlyDelegate(this);
+    setTableView();
 }
 
 withMenu::~withMenu()
@@ -137,7 +138,7 @@ QString withMenu::deleteSelectedRow(QTableView *table,int dummyIDX)
     }
 }
 
-void withMenu::on_queryButton_1_clicked()
+void withMenu::on_refreshButton_clicked()
 {
     setTableView();
 }
@@ -196,4 +197,84 @@ void withMenu::on_action_3_triggered()
 void withMenu::on_action_4_triggered()
 {
     birthday_searchWindow.show();
+}
+
+void withMenu::on_action_13_triggered()
+{
+    QString sql="(SELECT name,birthday,phone,email,dummy,relation FROM classmates";
+    for(int i=1;i<relations().size();i++)
+    {
+        sql+=(" UNION SELECT name,birthday,phone,email,dummy,relation FROM "+relations()[i]);
+    }
+    sql+=") ORDER BY name ASC";
+    qDebug()<<sql;
+    AllModel->setQuery(sql);
+    ui->allTable->setModel(AllModel);
+    for(int i=0;i<relations().size();i++)
+    {
+        CategoryModels[i]->setSort(1,Qt::AscendingOrder);
+        CategoryModels[i]->select();
+        CategoryTables[i]->setModel(CategoryModels[i]);
+    }
+    ui->hintlabel->setText("Sorted by name in ascending order.");
+}
+
+void withMenu::on_action_12_triggered()
+{
+    QString sql="(SELECT name,birthday,phone,email,dummy,relation FROM classmates";
+    for(int i=1;i<relations().size();i++)
+    {
+        sql+=(" UNION SELECT name,birthday,phone,email,dummy,relation FROM "+relations()[i]);
+    }
+    sql+=") ORDER BY name DESC";
+    qDebug()<<sql;
+    AllModel->setQuery(sql);
+    ui->allTable->setModel(AllModel);
+    for(int i=0;i<relations().size();i++)
+    {
+        CategoryModels[i]->setSort(1,Qt::DescendingOrder);
+        CategoryModels[i]->select();
+        CategoryTables[i]->setModel(CategoryModels[i]);
+    }
+    ui->hintlabel->setText("Sorted by name in descending order.");
+}
+
+void withMenu::on_action_8_triggered()
+{
+    QString sql="(SELECT name,birthday,phone,email,dummy,relation FROM classmates";
+    for(int i=1;i<relations().size();i++)
+    {
+        sql+=(" UNION SELECT name,birthday,phone,email,dummy,relation FROM "+relations()[i]);
+    }
+    sql+=") ORDER BY birthday DESC";
+    qDebug()<<sql;
+    AllModel->setQuery(sql);
+    ui->allTable->setModel(AllModel);
+    for(int i=0;i<relations().size();i++)
+    {
+        CategoryModels[i]->setSort(4,Qt::DescendingOrder);
+        CategoryModels[i]->select();
+        CategoryTables[i]->setModel(CategoryModels[i]);
+    }
+    ui->hintlabel->setText("Sorted by birthday in ascending order.");
+}
+
+void withMenu::on_action_9_triggered()
+{
+    QString sql="(SELECT name,birthday,phone,email,dummy,relation FROM classmates";
+    for(int i=1;i<relations().size();i++)
+    {
+        sql+=(" UNION SELECT name,birthday,phone,email,dummy,relation FROM "+relations()[i]);
+    }
+    sql+=") ORDER BY birthday ASC";
+    qDebug()<<sql;
+    AllModel->setQuery(sql);
+    ui->allTable->setModel(AllModel);
+    for(int i=0;i<relations().size();i++)
+    {
+        CategoryModels[i]->setSort(4,Qt::AscendingOrder);
+        CategoryModels[i]->select();
+        CategoryTables[i]->setModel(CategoryModels[i]);
+    }
+    ui->hintlabel->setText("Sorted by birthday in descending order.");
 }

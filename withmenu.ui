@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>900</width>
-    <height>600</height>
+    <height>633</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="3">
+    <item row="0" column="0" colspan="2">
      <widget class="QToolBox" name="toolBox">
       <property name="currentIndex">
        <number>1</number>
@@ -26,7 +26,7 @@
          <x>0</x>
          <y>0</y>
          <width>878</width>
-         <height>432</height>
+         <height>443</height>
         </rect>
        </property>
        <attribute name="label">
@@ -49,7 +49,7 @@
          <x>0</x>
          <y>0</y>
          <width>878</width>
-         <height>432</height>
+         <height>443</height>
         </rect>
        </property>
        <attribute name="label">
@@ -68,7 +68,7 @@
          <string notr="true">QTabBar::tab{width:110}</string>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="classmatestab">
          <attribute name="title">
@@ -195,9 +195,9 @@
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QPushButton" name="queryButton_1">
+     <widget class="QPushButton" name="refreshButton">
       <property name="text">
-       <string>查询所有</string>
+       <string> 刷新</string>
       </property>
      </widget>
     </item>
@@ -205,6 +205,16 @@
      <widget class="QPushButton" name="deleteButton_1">
       <property name="text">
        <string>删除选中行的信息</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="2">
+     <widget class="QLabel" name="hintlabel">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -298,22 +308,22 @@
   </action>
   <action name="action_8">
    <property name="text">
-    <string>降序</string>
+    <string>降序 (从晚到早)</string>
    </property>
   </action>
   <action name="action_9">
    <property name="text">
-    <string>升序</string>
+    <string>升序 (从早到晚)</string>
    </property>
   </action>
   <action name="action_12">
    <property name="text">
-    <string>降序</string>
+    <string>降序 (Z-A)</string>
    </property>
   </action>
   <action name="action_13">
    <property name="text">
-    <string>升序</string>
+    <string>升序 (A-Z)</string>
    </property>
   </action>
  </widget>

@@ -9,6 +9,7 @@
 #include"editwindow.h"
 #include"searchbyname.h"
 #include"searchbybirthday.h"
+#include"QList"
 
 namespace Ui {
 class withMenu;
@@ -18,14 +19,11 @@ class withMenu : public QMainWindow
 {
     Q_OBJECT
     Database db;
-    QSqlTableModel *tableModel;
-    SqlQueryRewrite *queryModel;
 public:
     explicit withMenu(QWidget *parent = nullptr);
     ~withMenu();
 
 private slots:
-    void on_connectButton_clicked();
     void on_queryButton_1_clicked();
     void on_deleteButton_1_clicked();
     void on_action_triggered();
@@ -37,10 +35,28 @@ private slots:
 
 private:
     Ui::withMenu *ui;
+    QFont font;
     InsertWindow insertWindow;
     EditWindow editWindow;
     SearchByName name_searchWindow;
     SearchByBirthday birthday_searchWindow;
+    QSqlQueryModel *AllModel;
+    QSqlTableModel *classmatesModel;
+    QSqlTableModel *friendsModel;
+    QSqlTableModel *colleaguesModel;
+    QSqlTableModel *relativesModel;
+    QSqlTableModel *teachersModel;
+    QSqlTableModel *superiorsModel;
+    QSqlTableModel *clientsModel;
+    QSqlTableModel *othersModel;
+    QList<QSqlTableModel*> CategoryModels;
+    QList<QTableView*> CategoryTables;
+    QString defaultsql;
+    ReadOnlyDelegate *readOnly;
+    bool setTableView();
+    QSqlQueryModel* setAllModel(QSqlQueryModel *model,QString sql);
+    QList<QSqlTableModel*> setCategoryModels(QList<QSqlTableModel*> models);
+    QString deleteSelectedRow(QTableView *table,int dummyIDX);
 };
 
 #endif // WITHMENU_H

@@ -12,6 +12,7 @@
 #include"sqlqueryrewrite.h"
 #include"QSqlError"
 #include"editwindow.h"
+#include"utils.h"
 
 withMenu::withMenu(QWidget *parent) :
     QMainWindow(parent),
@@ -22,6 +23,26 @@ withMenu::withMenu(QWidget *parent) :
     name_searchWindow(parent)
 {
     ui->setupUi(this);
+    setWindowTitle("View");
+    font.setPointSize(10);
+    font.setFamily("微软雅黑");
+    setFont(font);
+
+    int flag=db.connect("familiar");
+    CategoryModels<<classmatesModel<<friendsModel<<colleaguesModel<<relativesModel<<teachersModel<<superiorsModel<<clientsModel<<othersModel;
+    CategoryTables<<ui->classmatesTable<<ui->friendsTable<<ui->colleaguesTable<<ui->relativesTable<<ui->teachersTable
+                 <<ui->superiorsTable<<ui->clientsTable<<ui->othersTable;
+    AllModel=new QSqlQueryModel(this);
+    for(int i=0;i<CategoryModels.size();i++)
+        CategoryModels[i]=new QSqlTableModel(this);
+
+    defaultsql="SELECT name,birthday,phone,email,dummy,relation FROM classmates";
+    for(int i=1;i<relations().size();i++)
+    {
+        defaultsql+=(" UNION SELECT name,birthday,phone,email,dummy,relation FROM "+relations()[i]);
+    }
+
+    readOnly=new ReadOnlyDelegate(this);
 }
 
 withMenu::~withMenu()
@@ -30,64 +51,128 @@ withMenu::~withMenu()
     delete ui;
 }
 
-void withMenu::on_connectButton_clicked()
+QSqlQueryModel* withMenu::setAllModel(QSqlQueryModel *model,QString sql)
 {
-    int flag=db.connect("familiar");
-    QStringList basic,extra;
-//    if(flag==1)
-//    ui->connectInfo->setText("已连接到"+(*db.getDB()).hostName());
-//    else ui->connectInfo->setText("连接失败");
+    model->setQuery(sql);
+    return model;
+}
+QList<QSqlTableModel*> withMenu::setCategoryModels(QList<QSqlTableModel*> models)
+{
+    for(int i=0;i<models.size();i++)
+    {
+        models[i]->setTable(relations()[i]);
+        models[i]->select();
+    }
+    return models;
 }
 
+bool withMenu::setTableView()
+{
+    AllModel=setAllModel(AllModel,defaultsql);
+    CategoryModels=setCategoryModels(CategoryModels);
+    ui->allTable->setModel(AllModel);
+    ui->allTable->setColumnHidden(4,true);
+    for(int i=0;i<AllModel->columnCount();i++)
+        ui->allTable->setItemDelegateForColumn(i,readOnly);
+    for(int i=0;i<CategoryModels.size();i++)
+    {
+        CategoryTables[i]->setModel(CategoryModels[i]);
+        for(int j=0;j<AllModel->columnCount();j++)
+            CategoryTables[i]->setItemDelegateForColumn(j,readOnly);
+        CategoryTables[i]->setColumnHidden(0,true);
+    }
+    return true;
+}
+
+QString withMenu::deleteSelectedRow(QTableView *table,int dummyIDX)
+{
+    //QSqlTableModel,删除数据库中的选中行
+    if(dummyIDX==0)
+    {
+        QItemSelectionModel *selections = table->selectionModel();
+        QModelIndexList selected = selections->selectedIndexes();
+        if(selected.isEmpty())
+        {
+            QMessageBox::warning(this,QString::fromLocal8Bit("Error"),QString::fromLocal8Bit(("Please select a row!")));
+            return "";
+        }
+        QMap<int, int> rows;
+        foreach (QModelIndex index, selected)
+            rows.insert(index.row(), 0);
+        QMapIterator<int, int> r(rows);
+        r.toBack();
+        while (r.hasPrevious())
+        {
+            r.previous();
+            table->model()->removeRow(r.key());
+        }
+        return table->objectName().replace("Table","");
+    }
+    else
+    {
+        //QSqlQueryModel, 得到dummy(主键)(>0)、relation(指示表名) 并删除数据库数据
+        int curRow = table->currentIndex().row();
+        QModelIndex index = table->currentIndex();
+        index=table->model()->index(curRow,dummyIDX);
+        int dummy=table->model()->data(index).toInt();
+        qDebug()<<dummy;
+        QString dummy_=QString::number(dummy);
+        QSqlQuery query;
+        QString relation;
+        relation=index.sibling(curRow,5).data().toString();
+        if(dummy_=="0")
+        {
+            QMessageBox::warning(this,QString::fromLocal8Bit("Error"),QString::fromLocal8Bit(("Please select a row!")));
+            return "";
+        }
+        query.prepare("delete from "+relation+" where dummy ="+dummy_);
+        query.exec();
+        if(!query.isActive())
+        {
+            QMessageBox::critical(this,QString::fromLocal8Bit("Error"),QString::fromLocal8Bit("failed"));
+            qDebug()<<db.getDB()->lastError();
+            return "";
+        }
+        return relation;
+    }
+}
 
 void withMenu::on_queryButton_1_clicked()
 {
-    queryModel=new SqlQueryRewrite(this);
-    queryModel->setQuery("SELECT name,birthday,phone,email,relation,dummy FROM classmates UNION SELECT name,birthday,phone,email,relation,dummy FROM friends UNION SELECT name,birthday,phone,email,relation,dummy FROM colleagues UNION SELECT name,birthday,phone,email,relation,dummy FROM relatives UNION SELECT name,birthday,phone,email,relation,dummy FROM teachers UNION SELECT name,birthday,phone,email,relation,dummy FROM superiors UNION SELECT name,birthday,phone,email,relation,dummy FROM superiors UNION SELECT name,birthday,phone,email,relation,dummy FROM clients UNION SELECT name,birthday,phone,email,relation,dummy FROM others");
-    qDebug()<<db.getDB()->lastError();
-    ui->tableView->setModel(queryModel);
-    ui->tableView->setColumnHidden(5,true);
+    setTableView();
 }
 
 void withMenu::on_deleteButton_1_clicked()
 {
-    //删除数据库中的选中行
-    QItemSelectionModel *selections = ui->tableView->selectionModel();
-    QModelIndexList selected = selections->selectedIndexes();
-    QMap<int, int> rows;
-    foreach (QModelIndex index, selected)
-       rows.insert(index.row(), 0);
-    QMapIterator<int, int> r(rows);
-    r.toBack();
-    while (r.hasPrevious())
+    if(ui->toolBox->currentIndex()==0)
     {
-        r.previous();
-       queryModel->removeRow(r.key());
+        QString relation=deleteSelectedRow(ui->allTable,4);
+        if(!relation.isEmpty())
+        {
+            AllModel->setQuery(defaultsql);
+            ui->allTable->setModel(AllModel);
+            for(int i=0;i<relations().size();i++)
+            {
+                if(CategoryModels[i]->tableName()==relation)
+                {
+                    CategoryModels[i]->select();
+                    CategoryTables[i]->setModel(CategoryModels[i]);
+                    return;
+                }
+            }
+        }
+        else return;
     }
-    //得到dummy(主键)、relation(指示表名) 并删除数据库数据
-    int curRow = ui->tableView->currentIndex().row();
-    QModelIndex index = ui->tableView->currentIndex();
-    int dummy=index.sibling(curRow,5).data().toInt();
-    QString relation=index.sibling(curRow,4).data().toString();
-    QString dummy_=QString::number(dummy);
-    qDebug()<<relation;
-    qDebug()<<dummy_;
-    if(relation=="")
+    else
     {
-        QMessageBox::critical(this,QString::fromLocal8Bit("Error"),QString::fromLocal8Bit(("Please select a row!")));
-        return;
-    }
-    //删除数据库中数据
-    QSqlQuery query;
-    query.prepare("delete from "+relation+" where dummy ="+dummy_);
-    query.exec();
-    queryModel->setQuery("SELECT name,birthday,phone,email,relation,dummy FROM classmates UNION SELECT name,birthday,phone,email,relation,dummy FROM colleagues UNION SELECT name,birthday,phone,email,relation,dummy FROM relatives UNION SELECT name,birthday,phone,email,relation,dummy FROM teachers UNION SELECT name,birthday,phone,email,relation,dummy FROM superiors UNION SELECT name,birthday,phone,email,relation,dummy FROM superiors UNION SELECT name,birthday,phone,email,relation,dummy FROM clients");
-    ui->tableView->setColumnHidden(5,true);
-    qDebug()<<db.getDB()->lastError();
-    if(!query.isActive())
-    {
-        QMessageBox::critical(this,QString::fromLocal8Bit("Error"),QString::fromLocal8Bit("failed"));
-        qDebug()<<db.getDB()->lastError();
+        int tabIDX=ui->tabWidget->currentIndex();
+        qDebug()<<tabIDX;
+        qDebug()<<CategoryTables[tabIDX]->objectName();
+        QString relation=deleteSelectedRow(CategoryTables[tabIDX],0);
+        CategoryModels[tabIDX]->select();
+        CategoryTables[tabIDX]->setModel(CategoryModels[tabIDX]);
+        AllModel->setQuery(defaultsql);
+        ui->allTable->setModel(AllModel);
         return;
     }
 }

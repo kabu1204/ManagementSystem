@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>713</width>
+    <width>756</width>
     <height>419</height>
    </rect>
   </property>
@@ -14,13 +14,16 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QTableView" name="tableView"/>
-   </item>
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="label">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>查找</string>
        </property>
@@ -71,7 +74,20 @@
    <item row="2" column="0">
     <widget class="QLabel" name="hintlabel">
      <property name="text">
-      <string>Please input the days</string>
+      <string>Please input the days first and search</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QTableView" name="tableView"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="emaillabel">
+     <property name="text">
+      <string>then select a person to generate a sample of email</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

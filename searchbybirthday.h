@@ -7,6 +7,7 @@
 #include"QSqlTableModel"
 #include"QTableView"
 #include"readonlydelegate.h"
+#include"qsqldatemodel.h"
 
 namespace Ui {
 class SearchByBirthday;
@@ -23,6 +24,8 @@ public:
 private slots:
     void on_searchButton_clicked();
 
+    void on_emailButton_clicked();
+
 private:
     Ui::SearchByBirthday *ui;
     QFont font;
@@ -30,7 +33,9 @@ private:
     ReadOnlyDelegate *readOnly;
     QSqlTableModel* tableModel(int idx);
     QSqlQueryModel* queryModel();
-    int setTableView(QTableView* table,int days);
+    QSqlDateQueryModel* DateQeuryModel();
+    QSqlDateTableModel* DateTableModel(int idx);
+    int setTableView(QTableView* table,int days,int idx=-2);
 };
 
 #endif // SEARCHBYBIRTHDAY_H

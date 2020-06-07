@@ -29,7 +29,8 @@ SOURCES += \
     emailformatdelegate.cpp \
     utils.cpp \
     searchbyname.cpp \
-    searchbybirthday.cpp
+    searchbybirthday.cpp \
+    qsqldatemodel.cpp
 
 HEADERS += \
     database.h \
@@ -45,7 +46,8 @@ HEADERS += \
     emailformatdelegate.h \
     utils.h \
     searchbyname.h \
-    searchbybirthday.h
+    searchbybirthday.h \
+    qsqldatemodel.h
 
 FORMS += \
     withmenu.ui \

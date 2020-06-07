@@ -87,6 +87,7 @@ void SearchByName::on_searchButton_clicked()
         {
             QSqlQueryModel *model=queryModel(name);
             ui->tableView->setModel(model);
+            setReadOnly(ui->tableView);
             ui->hintlabel->setText("Found "+QString::number(model->rowCount())+" results in more than one relations, "
                                                                                "so only show part of information");
         }
@@ -94,6 +95,7 @@ void SearchByName::on_searchButton_clicked()
         {
             QSqlTableModel *model=tableModel(idx,name);
             ui->tableView->setModel(model);
+            setReadOnly(ui->tableView);
             ui->hintlabel->setText("Found "+QString::number(model->rowCount())+" result(s) in \""+relations()[idx]+"\"");
         }
     }

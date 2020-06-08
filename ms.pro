@@ -30,7 +30,8 @@ SOURCES += \
     utils.cpp \
     searchbyname.cpp \
     searchbybirthday.cpp \
-    qsqldatemodel.cpp
+    qsqldatemodel.cpp \
+    countbymonth.cpp
 
 HEADERS += \
     database.h \
@@ -47,14 +48,16 @@ HEADERS += \
     utils.h \
     searchbyname.h \
     searchbybirthday.h \
-    qsqldatemodel.h
+    qsqldatemodel.h \
+    countbymonth.h
 
 FORMS += \
     withmenu.ui \
     insertwindow.ui \
     editwindow.ui \
     searchbyname.ui \
-    searchbybirthday.ui
+    searchbybirthday.ui \
+    countbymonth.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

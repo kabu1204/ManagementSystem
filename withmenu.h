@@ -10,6 +10,7 @@
 #include"searchbyname.h"
 #include"searchbybirthday.h"
 #include"QList"
+#include"countbymonth.h"
 
 namespace Ui {
 class withMenu;
@@ -24,6 +25,7 @@ public:
     ~withMenu();
 
 private slots:
+    void receiveMonth(int month);
     void on_refreshButton_clicked();
     void on_deleteButton_1_clicked();
     void on_action_triggered();
@@ -41,6 +43,8 @@ private slots:
 
     void on_action_9_triggered();
 
+    void on_actionh_triggered();
+
 private:
     Ui::withMenu *ui;
     QFont font;
@@ -48,6 +52,7 @@ private:
     EditWindow editWindow;
     SearchByName name_searchWindow;
     SearchByBirthday birthday_searchWindow;
+    CountByMonth *monthDialog;
     QSqlQueryModel *AllModel;
     QSqlTableModel *classmatesModel;
     QSqlTableModel *friendsModel;

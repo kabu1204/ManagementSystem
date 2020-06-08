@@ -26,7 +26,7 @@
          <x>0</x>
          <y>0</y>
          <width>878</width>
-         <height>443</height>
+         <height>441</height>
         </rect>
        </property>
        <attribute name="label">
@@ -49,7 +49,7 @@
          <x>0</x>
          <y>0</y>
          <width>878</width>
-         <height>443</height>
+         <height>441</height>
         </rect>
        </property>
        <attribute name="label">
@@ -245,7 +245,7 @@
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
-     <string>排序</string>
+     <string>排序和统计</string>
     </property>
     <widget class="QMenu" name="menu_5">
      <property name="title">
@@ -263,6 +263,7 @@
     </widget>
     <addaction name="menu_5"/>
     <addaction name="menu_6"/>
+    <addaction name="actionh"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -324,6 +325,11 @@
   <action name="action_13">
    <property name="text">
     <string>升序 (A-Z)</string>
+   </property>
+  </action>
+  <action name="actionh">
+   <property name="text">
+    <string>统计指定月份出生人数</string>
    </property>
   </action>
  </widget>

@@ -12,6 +12,7 @@
 #include"sqlqueryrewrite.h"
 #include"QSqlError"
 #include"editwindow.h"
+#include"countbymonth.h"
 #include"utils.h"
 
 withMenu::withMenu(QWidget *parent) :
@@ -277,4 +278,37 @@ void withMenu::on_action_9_triggered()
         CategoryTables[i]->setModel(CategoryModels[i]);
     }
     ui->hintlabel->setText("Sorted by birthday in descending order.");
+}
+
+void withMenu::receiveMonth(int month)
+{
+    if(month==0)
+        monthDialog->close();
+    else
+    {
+        monthDialog->close();
+        QString sql="SELECT name,birthday,phone,email,dummy,relation FROM classmates WHERE MONTH(birthday)="+QString::number(month);
+        for(int i=1;i<relations().size();i++)
+        {
+            sql+=(" UNION SELECT name,birthday,phone,email,dummy,relation FROM "+relations()[i]+" WHERE MONTH(birthday)="+QString::number(month));
+        }
+        qDebug()<<sql;
+        AllModel->setQuery(sql);
+        ui->allTable->setModel(AllModel);
+        for(int i=0;i<relations().size();i++)
+        {
+            CategoryModels[i]->setFilter(tr("MONTH(birthday)='%1'").arg(QString::number(month)));
+            CategoryModels[i]->select();
+            CategoryTables[i]->setModel(CategoryModels[i]);
+        }
+        QMessageBox::information(this,"成功","找到"+QString::number(AllModel->rowCount())+"个结果");
+        ui->toolBox->setCurrentIndex(0);
+    }
+}
+
+void withMenu::on_actionh_triggered()
+{
+    monthDialog=new CountByMonth(this);
+    connect(monthDialog,SIGNAL(sendMonth(int)),this,SLOT(receiveMonth(int)));
+    monthDialog->show();
 }

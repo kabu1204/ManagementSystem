@@ -178,7 +178,7 @@ void SearchByBirthday::on_emailButton_clicked()
     int curRow=ui->tableView->currentIndex().row();
     QModelIndex idx;
     QString name="";
-    QString text=":\n\t祝生日快乐，健康幸福。\n\t\t\tYCY";
+    QString text=":\n\t祝生日快乐，健康幸福。\n\t\t\t\tYCY";
     idx=ui->tableView->model()->index(curRow,1);
     name=ui->tableView->model()->data(idx).toString();
     if(name.isEmpty())

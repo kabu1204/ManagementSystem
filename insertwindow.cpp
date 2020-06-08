@@ -10,7 +10,7 @@ InsertWindow::InsertWindow(Database *db_,QWidget *parent) :
     ui->setupUi(this);
     db=db_;
     setFixedSize(814,382);
-    setWindowTitle("Insert");
+    setWindowTitle("录入");
     labelfont.setPointSize(12);
     labelfont.setFamily("微软雅黑");
     setFont(labelfont);
@@ -20,6 +20,7 @@ InsertWindow::InsertWindow(Database *db_,QWidget *parent) :
     ui->relationCombo->setFont(labelfont);
     labelfont.setPointSize(9);
     ui->emailIn->setFont(labelfont);
+    ui->hintlabel->setFont(labelfont);
 
     //年龄、电话只能输入数字
     QRegExp regexp("[0-9]+$");
@@ -47,24 +48,24 @@ void InsertWindow::extraBoxDefault()
 
 void InsertWindow::raiseError(int errCode)
 {
-    if(errCode==-1) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":Please select the relation!");
-    if(errCode==1) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Name\" cannot be empty!");
-    if(errCode==2) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Age\" cannot be empty!");
-    if(errCode==3) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Gender\" cannot be empty!");
-    if(errCode==4) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Birthday\" cannot be empty!");
-    if(errCode==5) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Email\" cannot be empty!");
-    if(errCode==6) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Phone\" cannot be empty!");
-    if(errCode==7) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"School\" cannot be empty!");
-    if(errCode==8) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Course\" cannot be empty!");
-    if(errCode==9) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Company\" cannot be empty!");
-    if(errCode==10) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Post\" cannot be empty!");
-    if(errCode==11) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Call\" cannot be empty!");
-    if(errCode==12) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":\"Place\" cannot be empty!");
-    if(errCode==13) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":Age must be positive!");
-    if(errCode==14) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":Phone number must be positive");
-    if(errCode==15) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":Birthday must be earlier than today!");
-    if(errCode==16) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":The format of the email address is wrong!");
-    if(errCode==17) QMessageBox::critical(this,"Error","Insert failed! Error "+QString::number(errCode)+":Age cannot be larger than 200!");
+    if(errCode==-1) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":请选择\"Relation\"");
+    if(errCode==1) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":\"Name\"不能为空！");
+    if(errCode==2) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":\"Age\"不能为空！");
+    if(errCode==3) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":\"Gender\"不能为空！");
+    if(errCode==4) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":\"Birthday\"不能为空！");
+    if(errCode==5) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":\"Email\"不能为空！");
+    if(errCode==6) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":\"Phone\"不能为空！");
+    if(errCode==7) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":\"School\"不能为空！");
+    if(errCode==8) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":\"Course\"不能为空！");
+    if(errCode==9) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":\"Company\"不能为空！");
+    if(errCode==10) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":\"Post\"不能为空！");
+    if(errCode==11) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":\"Call\"不能为空！");
+    if(errCode==12) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":\"Place\"不能为空！");
+    if(errCode==13) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":年龄必须为正！");
+    if(errCode==14) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":电话号码必须为正！");
+    if(errCode==15) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":生日必须早于今天！");
+    if(errCode==16) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":邮箱地址格式错误！");
+    if(errCode==17) QMessageBox::critical(this,"错误","信息录入失败！错误代码 "+QString::number(errCode)+":年龄不能超过200！");
 }
 
 void InsertWindow::on_relationCombo_currentIndexChanged(int idx)
@@ -111,6 +112,14 @@ void InsertWindow::on_insertButton_clicked()
        <<(ui->callIn->isEnabled()?ui->callIn->text():"Unabled")<<(ui->placeIn->isEnabled()?ui->placeIn->text():"Unabled")
       <<ui->remarkIn->toPlainText();
     int errCode=Database::insertion_check_fix(relation,basic,extra);
-    if(errCode==0) db->insert(relation,basic,extra);
-    else raiseError(errCode);
+    if(errCode==0)
+    {
+        db->insert(relation,basic,extra);
+        ui->hintlabel->setText("录入成功！");
+    }
+    else{
+        ui->hintlabel->setText("录入失败！");
+        raiseError(errCode);
+
+    }
 }

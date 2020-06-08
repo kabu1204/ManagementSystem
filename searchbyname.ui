@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>885</width>
-    <height>269</height>
+    <width>813</width>
+    <height>408</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
      <item>
       <widget class="QPushButton" name="searchButton">
        <property name="text">
-        <string>Search</string>
+        <string>搜索</string>
        </property>
       </widget>
      </item>
@@ -44,7 +44,7 @@
    <item row="2" column="0">
     <widget class="QLabel" name="hintlabel">
      <property name="text">
-      <string>Please input the name!</string>
+      <string>请输入姓名</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

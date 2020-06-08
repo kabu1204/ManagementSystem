@@ -58,14 +58,14 @@
      <item>
       <widget class="QPushButton" name="searchButton">
        <property name="text">
-        <string>Search</string>
+        <string>搜索</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="emailButton">
        <property name="text">
-        <string>Email...</string>
+        <string>生成生日邮件...</string>
        </property>
       </widget>
      </item>
@@ -74,7 +74,7 @@
    <item row="2" column="0">
     <widget class="QLabel" name="hintlabel">
      <property name="text">
-      <string>Please input the days first and search</string>
+      <string>请先输入天数(≤365)再搜索 ()</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -87,7 +87,7 @@
    <item row="3" column="0">
     <widget class="QLabel" name="emaillabel">
      <property name="text">
-      <string>then select a person to generate a sample of email</string>
+      <string>然后可以选择生成并保存生日邮件的文本信息</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

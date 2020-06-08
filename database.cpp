@@ -31,7 +31,7 @@ int Database::connect(QString databaseName)
     db.setDatabaseName(databaseName);
     if(!db.open())
     {
-        qDebug() << db.lastError();
+//        qDebug() << db.lastError();
         return 0;
     }
     else return 1;
@@ -113,11 +113,10 @@ int Database::insert(QString relation,QStringList basic,QStringList extra)
         tail+=extra[6]+"\",\""+relation+"\")";
     }
     sql=head+body+tail;
-    qDebug()<<sql;
     query.exec(sql);
     if(db.lastError().isValid())
     {
-        qDebug()<<db.lastError();
+//        qDebug()<<db.lastError();
         return 0;
     }
     else return 1;

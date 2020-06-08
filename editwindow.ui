@@ -29,7 +29,7 @@
     <string notr="true">QTabBar::tab{width:110}</string>
    </property>
    <property name="currentIndex">
-    <number>7</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="classmatestab">
     <attribute name="title">
@@ -162,13 +162,13 @@
     </rect>
    </property>
    <property name="text">
-    <string>Cannot withdraw after committing</string>
+    <string>1.双击可以编辑相应信息 2.提交更改后无法撤销, 请确认后提交</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -187,7 +187,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>Commit</string>
+       <string>提交更改</string>
       </property>
      </widget>
     </item>
@@ -200,7 +200,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>Withdraw</string>
+       <string>撤销更改</string>
       </property>
      </widget>
     </item>

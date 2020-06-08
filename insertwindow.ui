@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>814</width>
-    <height>382</height>
+    <height>388</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -41,7 +41,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>BasicInfo</string>
+    <string>基本信息</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -182,7 +182,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>AdditionalInfo</string>
+    <string>额外信息</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -285,7 +285,7 @@
         <string/>
        </property>
        <property name="placeholderText">
-        <string>place where you met...</string>
+        <string>请输入认识的地点</string>
        </property>
       </widget>
      </item>
@@ -363,50 +363,66 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QLabel" name="hintlabel">
    <property name="geometry">
     <rect>
-     <x>11</x>
-     <y>261</y>
-     <width>791</width>
-     <height>111</height>
+     <x>10</x>
+     <y>340</y>
+     <width>180</width>
+     <height>16</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QPushButton" name="insertButton">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Insert</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QGroupBox" name="remarkBox">
-      <property name="title">
-       <string>Remarks</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <widget class="QPlainTextEdit" name="remarkIn">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>671</width>
-         <height>71</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
-    </item>
-   </layout>
+   <property name="text">
+    <string>请确认数据填写无误后录入</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="remarkBox">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>262</y>
+     <width>601</width>
+     <height>109</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>备注(remarks)</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <widget class="QPlainTextEdit" name="remarkIn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>581</width>
+      <height>71</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="insertButton">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>290</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="text">
+    <string>录入</string>
+   </property>
   </widget>
  </widget>
  <resources/>

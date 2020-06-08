@@ -26,7 +26,7 @@ void nonEmptyDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, 
     QLineEdit *lineEdit=static_cast<QLineEdit*>(editor);
     if(lineEdit->text().isEmpty())
     {
-        QMessageBox::warning(nullptr,"Warning","Cannot be empty!");
+        QMessageBox::warning(nullptr,"警告","内容不能为空！");
         return;
     }
     model->setData(index, lineEdit->text(), Qt::EditRole);

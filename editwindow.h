@@ -34,13 +34,14 @@ private:
     Ui::EditWindow *ui;
     QFont defaultfont;
     ReadOnlyDelegate *readOnly;
+    EditErrorDelegate *editError;
     genderDelegate *genderOnly;
     numberDelegate *ageLimit;
     numberDelegate *phoneLimit;
     nonEmptyDelegate *nonEmpty;
     emailFormatDelegate *emailCheck;
 
-    QStringList relations;
+//    QStringList relations;
     QList<QTableView*> tables;
     QList<QSqlTableModel*> models;
 

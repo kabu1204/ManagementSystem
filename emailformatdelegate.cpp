@@ -15,12 +15,12 @@ void emailFormatDelegate::setModelData(QWidget *editor, QAbstractItemModel *mode
     QString text=lineEdit->text();
     if(text.isEmpty())
     {
-        QMessageBox::warning(nullptr,"Warning","Cannot be empty!");
+        QMessageBox::warning(nullptr,"警告","邮箱不能为空！");
         return;
     }
     if((!text.contains("@")||(text.indexOf("@")==0)||(text.indexOf("@")==(text.size()-1))||(countCharacter(text,"@")>1)))
     {
-        QMessageBox::warning(nullptr,"Warning","Email format wrong!");
+        QMessageBox::warning(nullptr,"警告","邮箱格式错误，请重新编辑！");
         return;
     }
     model->setData(index, lineEdit->text(), Qt::EditRole);

@@ -19,10 +19,16 @@ QVariant QSqlDateQueryModel::data(const QModelIndex &index, int role) const
     if(index.column()==4)
     {
         QDate birthday=value.toDate();
-        birthday.setDate(QDate::currentDate().year(),birthday.month(),birthday.day());
+        QDate currentDate=QDate::currentDate();
+        birthday.setDate(currentDate.year(),birthday.month(),birthday.day());
+        bool inThisYear=currentDate.daysTo(birthday)>=0;
+        QString prefix=inThisYear?"今年":"明年";
+        if(!inThisYear)
+            birthday.setDate(currentDate.year()+1,birthday.month(),birthday.day());
         QString week=birthday.toString("dddd");
         QString date=birthday.toString("MM-dd");
-        QString result=date+"("+week+")";
+        QString result=prefix+date+"("+week+")";
+        //直接用MM-dd(dddd)显示不了横杠
         return result;
     }
     return value;
@@ -36,10 +42,16 @@ QVariant QSqlDateTableModel::data(const QModelIndex & index,int role) const
     if(index.column()==4)
     {
         QDate birthday=value.toDate();
-        birthday.setDate(QDate::currentDate().year(),birthday.month(),birthday.day());
+        QDate currentDate=QDate::currentDate();
+        birthday.setDate(currentDate.year(),birthday.month(),birthday.day());
+        bool inThisYear=currentDate.daysTo(birthday)>=0;
+        QString prefix=inThisYear?"今年":"明年";
+        if(!inThisYear)
+            birthday.setDate(currentDate.year()+1,birthday.month(),birthday.day());
         QString week=birthday.toString("dddd");
         QString date=birthday.toString("MM-dd");
-        QString result=date+"("+week+")";
+        QString result=prefix+date+"("+week+")";
+        //直接用MM-dd(dddd)显示不了横杠
         return result;
     }
     return value;

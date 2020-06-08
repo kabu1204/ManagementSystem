@@ -24,7 +24,7 @@ withMenu::withMenu(QWidget *parent) :
     name_searchWindow(parent)
 {
     ui->setupUi(this);
-    setWindowTitle("View");
+    setWindowTitle("通讯录总览");
     font.setPointSize(10);
     font.setFamily("微软雅黑");
     setFont(font);
@@ -95,7 +95,7 @@ QString withMenu::deleteSelectedRow(QTableView *table,int dummyIDX)
         QModelIndexList selected = selections->selectedIndexes();
         if(selected.isEmpty())
         {
-            QMessageBox::warning(this,QString::fromLocal8Bit("Error"),QString::fromLocal8Bit(("Please select a row!")));
+            QMessageBox::warning(this,QString::fromLocal8Bit("警告"),QString::fromLocal8Bit(("请先选中一行要删除的数据")));
             return "";
         }
         QMap<int, int> rows;
@@ -117,22 +117,21 @@ QString withMenu::deleteSelectedRow(QTableView *table,int dummyIDX)
         QModelIndex index = table->currentIndex();
         index=table->model()->index(curRow,dummyIDX);
         int dummy=table->model()->data(index).toInt();
-        qDebug()<<dummy;
         QString dummy_=QString::number(dummy);
         QSqlQuery query;
         QString relation;
         relation=index.sibling(curRow,5).data().toString();
         if(dummy_=="0")
         {
-            QMessageBox::warning(this,QString::fromLocal8Bit("Error"),QString::fromLocal8Bit(("Please select a row!")));
+            QMessageBox::warning(this,QString::fromLocal8Bit("警告"),QString::fromLocal8Bit(("请先选中一行要删除的数据")));
             return "";
         }
         query.prepare("delete from "+relation+" where dummy ="+dummy_);
         query.exec();
         if(!query.isActive())
         {
-            QMessageBox::critical(this,QString::fromLocal8Bit("Error"),QString::fromLocal8Bit("failed"));
-            qDebug()<<db.getDB()->lastError();
+            QMessageBox::critical(this,QString::fromLocal8Bit("错误"),QString::fromLocal8Bit("删除失败"));
+//            qDebug()<<db.getDB()->lastError();
             return "";
         }
         return relation;
@@ -141,7 +140,9 @@ QString withMenu::deleteSelectedRow(QTableView *table,int dummyIDX)
 
 void withMenu::on_refreshButton_clicked()
 {
+    ui->hintlabel->setText("请稍等...");
     setTableView();
+    ui->hintlabel->setText("已刷新");
 }
 
 void withMenu::on_deleteButton_1_clicked()
@@ -168,8 +169,6 @@ void withMenu::on_deleteButton_1_clicked()
     else
     {
         int tabIDX=ui->tabWidget->currentIndex();
-        qDebug()<<tabIDX;
-        qDebug()<<CategoryTables[tabIDX]->objectName();
         QString relation=deleteSelectedRow(CategoryTables[tabIDX],0);
         CategoryModels[tabIDX]->select();
         CategoryTables[tabIDX]->setModel(CategoryModels[tabIDX]);
@@ -208,7 +207,6 @@ void withMenu::on_action_13_triggered()
         sql+=(" UNION SELECT name,birthday,phone,email,dummy,relation FROM "+relations()[i]);
     }
     sql+=") ORDER BY name ASC";
-    qDebug()<<sql;
     AllModel->setQuery(sql);
     ui->allTable->setModel(AllModel);
     for(int i=0;i<relations().size();i++)
@@ -217,7 +215,7 @@ void withMenu::on_action_13_triggered()
         CategoryModels[i]->select();
         CategoryTables[i]->setModel(CategoryModels[i]);
     }
-    ui->hintlabel->setText("Sorted by name in ascending order.");
+    ui->hintlabel->setText("已按照姓名升序排列(A-Z)");
 }
 
 void withMenu::on_action_12_triggered()
@@ -228,7 +226,6 @@ void withMenu::on_action_12_triggered()
         sql+=(" UNION SELECT name,birthday,phone,email,dummy,relation FROM "+relations()[i]);
     }
     sql+=") ORDER BY name DESC";
-    qDebug()<<sql;
     AllModel->setQuery(sql);
     ui->allTable->setModel(AllModel);
     for(int i=0;i<relations().size();i++)
@@ -237,7 +234,7 @@ void withMenu::on_action_12_triggered()
         CategoryModels[i]->select();
         CategoryTables[i]->setModel(CategoryModels[i]);
     }
-    ui->hintlabel->setText("Sorted by name in descending order.");
+    ui->hintlabel->setText("已按照姓名降序排列(Z-A)");
 }
 
 void withMenu::on_action_8_triggered()
@@ -248,7 +245,6 @@ void withMenu::on_action_8_triggered()
         sql+=(" UNION SELECT name,birthday,phone,email,dummy,relation FROM "+relations()[i]);
     }
     sql+=") ORDER BY birthday DESC";
-    qDebug()<<sql;
     AllModel->setQuery(sql);
     ui->allTable->setModel(AllModel);
     for(int i=0;i<relations().size();i++)
@@ -257,7 +253,7 @@ void withMenu::on_action_8_triggered()
         CategoryModels[i]->select();
         CategoryTables[i]->setModel(CategoryModels[i]);
     }
-    ui->hintlabel->setText("Sorted by birthday in ascending order.");
+    ui->hintlabel->setText("已按照出生日期降序排列(从晚到早)");
 }
 
 void withMenu::on_action_9_triggered()
@@ -268,7 +264,6 @@ void withMenu::on_action_9_triggered()
         sql+=(" UNION SELECT name,birthday,phone,email,dummy,relation FROM "+relations()[i]);
     }
     sql+=") ORDER BY birthday ASC";
-    qDebug()<<sql;
     AllModel->setQuery(sql);
     ui->allTable->setModel(AllModel);
     for(int i=0;i<relations().size();i++)
@@ -277,7 +272,7 @@ void withMenu::on_action_9_triggered()
         CategoryModels[i]->select();
         CategoryTables[i]->setModel(CategoryModels[i]);
     }
-    ui->hintlabel->setText("Sorted by birthday in descending order.");
+    ui->hintlabel->setText("已按照出生日期升序排列(从早到晚)");
 }
 
 void withMenu::receiveMonth(int month)
@@ -292,7 +287,6 @@ void withMenu::receiveMonth(int month)
         {
             sql+=(" UNION SELECT name,birthday,phone,email,dummy,relation FROM "+relations()[i]+" WHERE MONTH(birthday)="+QString::number(month));
         }
-        qDebug()<<sql;
         AllModel->setQuery(sql);
         ui->allTable->setModel(AllModel);
         for(int i=0;i<relations().size();i++)
@@ -301,7 +295,7 @@ void withMenu::receiveMonth(int month)
             CategoryModels[i]->select();
             CategoryTables[i]->setModel(CategoryModels[i]);
         }
-        QMessageBox::information(this,"成功","找到"+QString::number(AllModel->rowCount())+"个结果");
+        QMessageBox::information(this,"成功","找到"+QString::number(AllModel->rowCount())+"个结果，总表和各分类列表显示结果已更新");
         ui->toolBox->setCurrentIndex(0);
     }
 }

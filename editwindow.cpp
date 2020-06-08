@@ -8,26 +8,28 @@
 #include"numberdelegate.h"
 #include"nonemptydelegate.h"
 #include"emailformatdelegate.h"
+#include"utils.h"
 
 EditWindow::EditWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EditWindow)
 {
     ui->setupUi(this);
-    setWindowTitle("Edit");
+    setWindowTitle("编辑和更改");
     setFixedSize(893,557);
     defaultfont.setPointSize(10);
     defaultfont.setFamily("微软雅黑");
     setFont(defaultfont);
 
     readOnly=new ReadOnlyDelegate();
+    editError=new EditErrorDelegate();
     genderOnly=new genderDelegate();
     ageLimit=new numberDelegate(1,200);
     phoneLimit=new numberDelegate(1,2147483647);
     nonEmpty=new nonEmptyDelegate();
     emailCheck=new emailFormatDelegate();
 
-    relations<<"classmates"<<"friends"<<"colleagues"<<"relatives"<<"teachers"<<"superiors"<<"clients"<<"others";
+//    relations<<"classmates"<<"friends"<<"colleagues"<<"relatives"<<"teachers"<<"superiors"<<"clients"<<"others";
     tables<<ui->classmatesTable<<ui->friendsTable<<ui->colleaguesTable<<ui->relativesTable<<ui->teachersTable<<ui->superiorsTable
          <<ui->clientsTable<<ui->othersTable;
     models<<classmatesModel<<friendsModel<<colleaguesModel<<relativesModel<<teachersModel<<superiorsModel<<clientsModel<<othersModel;
@@ -46,26 +48,26 @@ QTableView* EditWindow::initializeTable(QTableView *table,QSqlTableModel *model)
 {
     table->setModel(model);
     table->setColumnHidden(0,true);
-    table->setItemDelegateForColumn(1,readOnly);
+    table->setItemDelegateForColumn(1,editError);
     table->setItemDelegateForColumn(2,ageLimit);
     table->setItemDelegateForColumn(3,genderOnly);
-    table->setItemDelegateForColumn(4,readOnly);
+    table->setItemDelegateForColumn(4,editError);
     table->setItemDelegateForColumn(5,emailCheck);
     table->setItemDelegateForColumn(6,phoneLimit);
     for(int i=7;i<model->columnCount()-2;i++)
         table->setItemDelegateForColumn(i,nonEmpty);
-    table->setItemDelegateForColumn(model->columnCount()-1,readOnly);
+    table->setItemDelegateForColumn(model->columnCount()-1,editError);
     return table;
 }
 
 void EditWindow::TableModelInitializer()
 {
-    for(int i=0;i<relations.size();i++)
+    for(int i=0;i<relations().size();i++)
     {
-        models[i]=initializeModel(models[i],relations[i]);
+        models[i]=initializeModel(models[i],relations()[i]);
     }
 
-    for(int i=0;i<relations.size();i++)
+    for(int i=0;i<relations().size();i++)
     {
         tables[i]=initializeTable(tables[i],models[i]);
     }
@@ -85,19 +87,19 @@ EditWindow::~EditWindow()
 
 void EditWindow::on_commitButton_clicked()
 {
-    for(int i=0;i<relations.size();i++)
+    for(int i=0;i<relations().size();i++)
     {
         models[i]->database().transaction();
         if (models[i]->submitAll())
         {
             models[i]->database().commit();
-            ui->hintlabel->setText("Seccessfally committed!");
+            ui->hintlabel->setText("提交更改成功！");
 //            refreshTable(tables[i],models[i]);
         }
         else
         {
             models[i]->database().rollback();
-            QMessageBox::critical(this,"Error","Commit failed!");
+            QMessageBox::critical(this,"错误","提交更改失败！");
             return;
         }
     }
@@ -105,7 +107,7 @@ void EditWindow::on_commitButton_clicked()
 
 void EditWindow::on_withdrawButtion_clicked()
 {
-    for(int i=0;i<relations.size();i++)
+    for(int i=0;i<relations().size();i++)
     {
         models[i]->revertAll();
         tables[i]->setModel(models[i]);

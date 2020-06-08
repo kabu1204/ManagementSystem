@@ -15,10 +15,34 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0">
+     <widget class="QPushButton" name="refreshButton">
+      <property name="text">
+       <string> 刷新</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="2">
+     <widget class="QLabel" name="hintlabel">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QPushButton" name="deleteButton_1">
+      <property name="text">
+       <string>删除选中行的信息</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="0" colspan="2">
      <widget class="QToolBox" name="toolBox">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="geometry">
@@ -30,15 +54,15 @@
         </rect>
        </property>
        <attribute name="label">
-        <string>Show All</string>
+        <string>显示全部</string>
        </attribute>
        <widget class="QTableView" name="allTable">
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-10</y>
+          <y>0</y>
           <width>871</width>
-          <height>421</height>
+          <height>411</height>
          </rect>
         </property>
        </widget>
@@ -53,7 +77,7 @@
         </rect>
        </property>
        <attribute name="label">
-        <string>Show by categories</string>
+        <string>分类显示人员信息</string>
        </attribute>
        <widget class="QTabWidget" name="tabWidget">
         <property name="geometry">
@@ -192,30 +216,6 @@
         </widget>
        </widget>
       </widget>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="refreshButton">
-      <property name="text">
-       <string> 刷新</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QPushButton" name="deleteButton_1">
-      <property name="text">
-       <string>删除选中行的信息</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0" colspan="2">
-     <widget class="QLabel" name="hintlabel">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
      </widget>
     </item>
    </layout>

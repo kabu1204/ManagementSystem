@@ -11,7 +11,7 @@ SearchByName::SearchByName(QWidget *parent) :
     ui(new Ui::SearchByName)
 {
     ui->setupUi(this);
-    setWindowTitle("Search by name");
+    setWindowTitle("按照名字搜索");
     font.setPointSize(10);
     font.setFamily("微软雅黑");
     setFont(font);
@@ -32,7 +32,6 @@ int SearchByName::pre_search(QString name)
     for(int i=0;i<relations().size();i++)
     {
         sql="SELECT name,relation FROM "+relations()[i]+" WHERE name=\'"+name+"\'";
-        qDebug()<<sql;
         model->setQuery(sql);
         if(model->rowCount()>0)
         {
@@ -72,7 +71,7 @@ void SearchByName::on_searchButton_clicked()
     QString name=ui->nameIn->text();
     if(name.isEmpty())
     {
-        QMessageBox::warning(this,"Warning!","Please input the name!");
+        QMessageBox::warning(this,"警告","请输入姓名！");
         return;
     }
     else
@@ -80,7 +79,7 @@ void SearchByName::on_searchButton_clicked()
         int idx=pre_search(name);
         if(idx==-1)
         {
-            QMessageBox::warning(this,"Warning!","Found no result!");
+            QMessageBox::warning(this,"警告","未找到符合要求的结果");
             return;
         }
         else if(idx==-2)
@@ -88,15 +87,15 @@ void SearchByName::on_searchButton_clicked()
             QSqlQueryModel *model=queryModel(name);
             ui->tableView->setModel(model);
             setReadOnly(ui->tableView);
-            ui->hintlabel->setText("Found "+QString::number(model->rowCount())+" results in more than one relations, "
-                                                                               "so only show part of information");
+            ui->hintlabel->setText("在多个人际关系中找到"+QString::number(model->rowCount())+"个结果，因此只展示基本信息");
         }
         else
         {
             QSqlTableModel *model=tableModel(idx,name);
             ui->tableView->setModel(model);
             setReadOnly(ui->tableView);
-            ui->hintlabel->setText("Found "+QString::number(model->rowCount())+" result(s) in \""+relations()[idx]+"\"");
+            ui->tableView->setColumnHidden(0,true);
+            ui->hintlabel->setText("在关系\""+relations()[idx]+"\"中，找到"+QString::number(model->rowCount())+"个结果。");
         }
     }
 }

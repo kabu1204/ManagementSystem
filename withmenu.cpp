@@ -29,7 +29,7 @@ withMenu::withMenu(QWidget *parent) :
     font.setFamily("微软雅黑");
     setFont(font);
     setFixedSize(900,633);
-
+    this->setAttribute(Qt::WA_DeleteOnClose);
     int flag=db.connect("familiar");
     CategoryModels<<classmatesModel<<friendsModel<<colleaguesModel<<relativesModel<<teachersModel<<superiorsModel<<clientsModel<<othersModel;
     CategoryTables<<ui->classmatesTable<<ui->friendsTable<<ui->colleaguesTable<<ui->relativesTable<<ui->teachersTable
@@ -50,6 +50,7 @@ withMenu::withMenu(QWidget *parent) :
 withMenu::~withMenu()
 {
     insertWindow.close();
+
     delete ui;
 }
 

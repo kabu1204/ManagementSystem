@@ -20,7 +20,7 @@ public:
     }
 };
 
-class EditErrorDelegate: public QItemDelegate
+class EditErrorDelegate: public ReadOnlyDelegate
 {
 
 public:

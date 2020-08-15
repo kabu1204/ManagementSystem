@@ -24,7 +24,7 @@ class EditErrorDelegate: public ReadOnlyDelegate
 {
 
 public:
-    EditErrorDelegate(QWidget *parent = nullptr):QItemDelegate(parent)
+    EditErrorDelegate(QWidget *parent = nullptr):ReadOnlyDelegate(parent)
     {}
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,const QModelIndex &index) const override

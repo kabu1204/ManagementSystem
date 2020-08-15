@@ -9,7 +9,7 @@
 #include <QSqlQuery>
 #include <cstring>
 
-class Database
+class Database:public QSqlDatabase
 {
 private:
     QSqlDatabase db;
